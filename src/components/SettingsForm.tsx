@@ -6,7 +6,7 @@ import {
     View,
 } from "react-native";
 import { FetchAllSurah } from "../services/network";
-import { GameSetting } from "../classes/GameSetting";
+import { GameSetting } from "../models/GameSetting";
 import { RadioFormGroup, RadioObject } from "../components/RadioFormGroup";
 import { ModalComponent, ModalRef } from "../components/ModalComponent";
 import { BouncyCheckBoxGroup } from "../components/BouncyCheckBoxGroup";
