@@ -1,16 +1,33 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { gameSettings } from '../components/SettingsForm';
+import { FetchGameData } from '../services/network';
+import { showMessage } from 'react-native-flash-message';
 
 interface HomeScreenProps {
   navigation: any; // Adjust the type of navigation as per your actual navigation prop type
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  const startGame = () => {
-    console.log(gameSettings);
-    // Request api with settigs sessionStorage.getItem("settings")
+
+  const startGame = async () => {
+    // Request api with settigs
     // Fetch data of the different game part
+    // Add loader here
+    let data = [];
+    if (gameSettings.getnumberOfQuestionPerGame() > 0 && gameSettings.getSurahs().length > 0) {
+      data = await FetchGameData(gameSettings);
+    } else {
+      showMessage({
+        message: "Please set up your settings before",
+        type: "warning",
+      });
+    }
+    // Hide loader
+    if (data.length > 0) {
+      navigation.navigate('Game', {data: data})
+    }
+
     // redirect to gameScreen with params fetched and start game
   }
 
@@ -25,7 +42,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           style={[styles.button, styles.ButtonSubmit]}
           onPress={startGame}
         >
-          <Text style={styles.textStyle}>Start a new game</Text>
+          <Text style={styles.textStyle}>Start</Text>
         </Pressable>
         <Pressable
           style={[styles.button, styles.ButtonSubmit]}
@@ -43,15 +60,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#3c604b',
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center'
   },
   logo: {
-    width: 300,
-    height: 300,
-    marginTop: 100,
+    width: 400,
+    height: 400,
+    // marginTop: 100,
   },
   button: {
     borderRadius: 20,
-    padding: 12,
+    marginVertical: 20,
+    padding: 15,
     marginTop: 10,
     elevation: 2,
   },
@@ -65,8 +84,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#b89742",
   },
   textStyle: {
+    textTransform: 'uppercase',
     color: "#FFFFFF",
-    fontWeight: "bold",
+    fontSize: 16,
     textAlign: "center",
+    fontFamily: 'Roboto'
   },
 });

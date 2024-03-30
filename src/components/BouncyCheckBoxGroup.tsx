@@ -23,7 +23,7 @@ export const BouncyCheckBoxGroup: React.FC<RadioFormGroupProps> = ({ data, press
       keyExtractor={({ number }) => number}
       renderItem={({ item, index }) => {
         return (
-          <View style={[{ backgroundColor: '#ffffff', flex: 1, padding: 10 }, index % 2 == 0 ? { marginRight: 2 } : { marginLeft: 2 }]}>
+          <View style={[{ backgroundColor: '#ffffff', flex: 1, padding: 10 }, index % 2 == 0 ? { marginRight: 1 } : { marginLeft: 1 }]}>
             <BouncyCheckbox
               style={styles.centeredView}
               textStyle={styles.textStyle}
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     color: "#3c604b",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 15,
+    fontSize: 20,
     textDecorationLine: "none",
   },
 });

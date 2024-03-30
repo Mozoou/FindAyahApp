@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import { Surah } from '../interfaces/Surah';
+import { Surah } from '../interfaces/SurahInterface';
 
 export interface ModalRef {
   openModal: (data: any) => void;

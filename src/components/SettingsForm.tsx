@@ -60,7 +60,9 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ navigation }) => {
 
     const modalContent = () => {
         return (
-            <BouncyCheckBoxGroup data={allSurahsData} pressedItems={gameSettings.getSurahs()} onPress={onSelectSurah} />
+            <>
+                <BouncyCheckBoxGroup data={allSurahsData} pressedItems={gameSettings.getSurahs()} onPress={onSelectSurah} />
+            </>
         )
     }
 
@@ -92,7 +94,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
-                <Text style={styles.title}>Choose your parameters</Text>
+                <Text style={styles.title}>Configure Your Quran Quiz Settings</Text>
                 <View style={styles.formGroup}>
                     <RadioFormGroup
                         label="How many questions do you want ?"
@@ -109,13 +111,13 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ navigation }) => {
                         <Text style={styles.textStyle}>Select surahs</Text>
                     </Pressable>
                     <ModalComponent ref={modalRef} modalContent={modalContent} />
+                </View>
                     <Pressable
                         style={[styles.button, styles.ButtonSubmit]}
                         onPress={saveParams}
                     >
                         <Text style={styles.textStyle}>Save</Text>
                     </Pressable>
-                </View>
             </View>
         </View>
     );
@@ -128,22 +130,27 @@ const styles = StyleSheet.create({
         backgroundColor: "#3c604b",
         justifyContent: "center",
         alignItems: "center",
+        fontFamily: "Roboto"
     },
     formContainer: {
         backgroundColor: "#FFFFFF",
-        width: "80%",
-        height: "50%",
+        width: "90%",
+        height: "70%",
         marginHorizontal: 50,
         borderRadius: 30,
         alignItems: "center",
     },
     title: {
         color: "#3c604b",
-        fontSize: 25,
+        fontSize: 23,
         marginVertical: 25,
-        fontFamily: "Georgia",
+        fontFamily: "Roboto",
     },
-
+    modalTitle: {
+        color: "#b89742",
+        fontSize: 23,
+        marginVertical: 25,
+    },
     formGroup: {
         marginLeft: 10,
         marginBottom: 20,
