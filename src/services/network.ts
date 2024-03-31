@@ -1,8 +1,7 @@
+import { API_INTERNAL } from "@env";
 import { GameSetting } from "../models/GameSetting";
 
-// const API_URL = 'https://api.example.com';
 const API_EXTERNAL = "https://api.alquran.cloud/v1";
-const API_INTERNAL = "https://fcc6-45-155-64-2.ngrok-free.app/api";
 
 export const FetchAllSurah = async () => {
   try {
