@@ -34,6 +34,7 @@
     "@types/jest": "^29.5.12",
     "@types/react": "^18.2.69",
     "@types/react-test-renderer": "^18.0.7",
+    "react-native-dotenv": "^3.4.11",
     "typescript": "^5.4.3"
   },
   "private": true
