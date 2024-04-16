@@ -1,8 +1,9 @@
-import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { gameSettings } from '../components/SettingsForm';
 import { FetchGameData } from '../services/network';
 import { showMessage } from 'react-native-flash-message';
+import { GameQuestion } from '../models/GameQuestion';
 
 interface HomeScreenProps {
   navigation: any; // Adjust the type of navigation as per your actual navigation prop type
@@ -10,11 +11,14 @@ interface HomeScreenProps {
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
+  const [show, setShow] = useState(false);
+  const [disabledButtons, setDisabledButtons] = useState(false);
+
   const startGame = async () => {
-    // Request api with settigs
-    // Fetch data of the different game part
     // Add loader here
-    let data = [];
+    setShow(true)
+    setDisabledButtons(true)
+    let data: Array<GameQuestion>|undefined = [];
     if (gameSettings.getnumberOfQuestionPerGame() > 0 && gameSettings.getSurahs().length > 0) {
       data = await FetchGameData(gameSettings);
     } else {
@@ -23,9 +27,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         type: "warning",
       });
     }
-    // Hide loader
-    if (data.length > 0) {
-      navigation.navigate('Game', {data: data})
+    // remove loader
+    setShow(false)
+    setDisabledButtons(false)
+    if (data && data.length > 0) {
+      navigation.navigate('Game', {data})
     }
 
     // redirect to gameScreen with params fetched and start game
@@ -37,16 +43,19 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         style={styles.logo}
         source={require('../../assets/img/dark_logo.png')}
       />
+      <ActivityIndicator size={50} animating={show} hidesWhenStopped color='#b89742'/>
       <View>
         <Pressable
-          style={[styles.button, styles.ButtonSubmit]}
+          style={!disabledButtons ? [styles.button, styles.buttonSubmit] : [styles.button, styles.buttonDisabled]}
           onPress={startGame}
+          disabled={disabledButtons}
         >
           <Text style={styles.textStyle}>Start</Text>
         </Pressable>
         <Pressable
-          style={[styles.button, styles.ButtonSubmit]}
+          style={[styles.button, styles.buttonSubmit]}
           onPress={() => navigation.navigate('Settings')}
+          disabled={disabledButtons}
         >
           <Text style={styles.textStyle}>Settings</Text>
         </Pressable>
@@ -65,7 +74,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 400,
     height: 400,
-    // marginTop: 100,
   },
   button: {
     borderRadius: 20,
@@ -80,8 +88,11 @@ const styles = StyleSheet.create({
   buttonClose: {
     backgroundColor: "#3c604b",
   },
-  ButtonSubmit: {
+  buttonSubmit: {
     backgroundColor: "#b89742",
+  },
+  buttonDisabled: {
+    display: 'none'
   },
   textStyle: {
     textTransform: 'uppercase',

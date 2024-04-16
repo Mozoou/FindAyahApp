@@ -1,5 +1,7 @@
 import { API_INTERNAL } from "@env";
 import { GameSetting } from "../models/GameSetting";
+import { plainToInstance } from "class-transformer";
+import { GameQuestion } from "../models/GameQuestion";
 
 const API_EXTERNAL = "https://api.alquran.cloud/v1";
 
@@ -15,19 +17,19 @@ export const FetchAllSurah = async () => {
 
 export const FetchGameData = async (gameSettings: GameSetting) => {
   try {
-    const response = await fetch(`${API_INTERNAL}/`+ 'gamedata', {
+    const response = await fetch(`${API_INTERNAL}/`+ 'fetch_game_questions', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        numberOfQuestionPerGame: gameSettings.getnumberOfQuestionPerGame(),
-        surahs: gameSettings.getSurahs(),
+        numberOfQuestionsPerGame: gameSettings.getnumberOfQuestionPerGame(),
+        chapterNumbers: gameSettings.getSurahs(),
       }),
     });
     const json = await response.json();
-    return json.data;
+    return plainToInstance(GameQuestion, json)
   } catch (error) {
     console.error(error);
   }

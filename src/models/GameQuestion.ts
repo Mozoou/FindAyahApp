@@ -1,17 +1,35 @@
 import { AyahInteface } from "../interfaces/AyahInterface";
 
-export class GameQuestion
-{
-    ayah: AyahInteface
-    goodAyah: AyahInteface
-    wrongAyahs: Array<AyahInteface>
-    questionNumber: number;
+export class GameQuestion {
+    verseToFind: AyahInteface
+    goodVerseAnswer: AyahInteface
+    badVersesAnswer: Array<AyahInteface>
 
-    constructor(ayahToFind: AyahInteface, goodAyah: AyahInteface, wrongAyahs: Array<AyahInteface>, questionNumber: number)
-    {
-        this.ayah = ayahToFind
-        this.goodAyah = goodAyah
-        this.wrongAyahs = wrongAyahs
-        this.questionNumber = questionNumber
+    constructor(verseToFind: AyahInteface, goodVerseAnswer: AyahInteface, badVersesAnswer: Array<AyahInteface>) {
+        this.verseToFind = verseToFind
+        this.goodVerseAnswer = goodVerseAnswer
+        this.badVersesAnswer = badVersesAnswer
+    }
+
+    getQuestionChoices(): Array<any> {
+        let choices = [
+            {
+                id: this.goodVerseAnswer.number,
+                label: this.goodVerseAnswer.text,
+                value: this.goodVerseAnswer.numberInSurah,
+                layout: 'col'
+            }
+        ];
+        this.badVersesAnswer.forEach(verse => {
+            const wrongAyah = {
+                id: verse.number,
+                label: verse.text,
+                value: verse.numberInSurah,
+                layout: 'col'
+            }
+            choices.push(wrongAyah)
+        });
+
+        return choices;
     }
 }
