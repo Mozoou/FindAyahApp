@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import FlashMessage from 'react-native-flash-message';
 import Navigation from './src/navigation/Navigation';
 import { useFonts } from 'expo-font';
