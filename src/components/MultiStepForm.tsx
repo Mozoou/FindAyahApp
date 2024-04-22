@@ -11,17 +11,21 @@ interface MultiStepFormProps {
 
 export const MultiStepForm: React.FC<MultiStepFormProps> = ({ data, gameScoreBoard, navigation }) => {
     const [currentStep, setCurrentStep] = useState<number>(0);
+    const [selectedValue, setSelectedValue] = useState(0);
+
+    const handleValueChange = (id: number) => {
+        setSelectedValue(id);
+    }
     
     const handleNextClick = () => {
-        // Augemeter / diminuer le score en fonction de la réponse
-        gameScoreBoard.incrementScore()
+        gameScoreBoard.updateScore(selectedValue, data[currentStep].goodVerseAnswer)
         setCurrentStep(currentStep + 1);
-        // Rendre le bon Form
     }
 
     const handleFinishButton = () => {
         // gameScoreBoard.incrementScore()
         navigation.navigate('Home')
+        gameScoreBoard.score = 0;
     }
 
     const getGameQuestion = () => {
@@ -29,29 +33,28 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({ data, gameScoreBoa
     }
 
     const islastQuestion = () => {
-        return currentStep+1 < data.length
+        return currentStep + 1 < data.length
     }
 
     return (
         <View style={styles.container}>
             <Text style={styles.score}>Score : {gameScoreBoard.score}</Text>
             <View style={styles.formContainer}>
-                {/* Rendre le form en question avec le bon step */}
-                <FormStep gameQuestion={getGameQuestion()} />
+                <FormStep gameQuestion={getGameQuestion()} handleValueChange={handleValueChange} />
             </View>
             <View>
             {islastQuestion() && <Pressable
                 style={styles.button}
                 onPress={handleNextClick}
                 >
-                <Text>Next</Text>
+                <Text style={styles.buttonText}>Next</Text>
             </Pressable>
             }
              {!islastQuestion() && <Pressable
                 style={styles.button}
                 onPress={handleFinishButton}
                 >
-                <Text>Finish</Text>
+                <Text style={styles.buttonText}>Finish</Text>
             </Pressable>
                 }
             </View>
@@ -73,9 +76,8 @@ const styles = StyleSheet.create({
     formContainer: {
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
-        padding: 20,
+        padding: 40,
         marginHorizontal: 15,
-        paddingBottom: 0,
         alignContent: 'center',
         justifyContent: 'center',
     },
@@ -85,4 +87,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         backgroundColor: '#b89742'
     },
+    buttonText: {
+        color: 'white',
+    }
 });

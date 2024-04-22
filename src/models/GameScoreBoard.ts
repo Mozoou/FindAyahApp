@@ -1,13 +1,23 @@
+import { AyahInteface } from "../interfaces/AyahInterface";
+
 export class GameScoreBoard
 {
-    // player: number
     score: number = 0;
 
     incrementScore() {
-        this.score = this.score + 3;
+        this.score = this.score + 1;
     }
 
     decrementScore() {
         this.score = this.score - 1;
+    }
+
+    updateScore(id: number, goodVerseAnswer: AyahInteface): void
+    {
+        if (id === goodVerseAnswer.number) {
+            this.incrementScore()
+        } else {
+            this.decrementScore()
+        }
     }
 }
