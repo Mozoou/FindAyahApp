@@ -1,37 +1,60 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { GameQuestion } from "../models/GameQuestion";
-import { RadioGroup } from "react-native-radio-buttons-group";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { getFontSize } from "../utils/Functions";
+import { CustomRadioButton } from "./CustomRadioButton";
+import TextTicker from "react-native-text-ticker";
 
 interface FormStepProps {
     gameQuestion: GameQuestion
+    handleValueChange: (id: number) => void
 }
 
-export const FormStep: React.FC<FormStepProps> = ({ gameQuestion }) => {
-    const [selectedValue, setSelectedValue] = useState('');
+export const FormStep: React.FC<FormStepProps> = ({ gameQuestion, handleValueChange }) => {
+    const [selectedValue, setSelectedValue] = useState(0);
+    const getQuestionChoices = useMemo(() => gameQuestion.getQuestionChoices(), [gameQuestion.goodVerseAnswer]);
 
-    const handleChoicePress = (id: string) => {
+    const handleChoicePress = (id: number) => {
+        handleValueChange(id)
         setSelectedValue(id)
     }
 
-    const getRadioButtons = () => {
-        return gameQuestion.getQuestionChoices();
-    }
+    let radioButtons: Array<any> = [];
+
+    getQuestionChoices.forEach((choice) => {
+        radioButtons.push(
+            <CustomRadioButton
+                label={choice.label}
+                selected={choice.id === selectedValue}
+                onSelect={() => handleChoicePress(choice.id)}
+            />
+        );
+    });
 
     return (
         <View>
             <View style={styles.titleContainer}>
-                <Text style={[styles.ayah, styles.ayahToFind]}>{gameQuestion.verseToFind.text}</Text>
+                <Text 
+                    style={[styles.ayah, styles.ayahToFind]}
+                >
+                    {gameQuestion.verseToFind.text}
+
+                </Text>
+                
+                {/* <TextTicker
+                    style={[styles.ayah, styles.ayahToFind]}
+                    animationType='bounce'
+                    // duration={}
+                    // scrollSpeed={5000}
+                    loop
+                    isRTL={true}
+                >
+                    {gameQuestion.verseToFind.text}
+                </TextTicker> */}
             </View>
             <View>
-                <RadioGroup
-                    layout='column'
-                    radioButtons={getRadioButtons()}
-                    onPress={(id) => handleChoicePress(id)}
-                    selectedId={selectedValue}
-                    labelStyle={styles.ayah}
-                />
+                <Text style={styles.label}>Choose the next verse</Text>
+                {radioButtons}
             </View>
         </View>
     );
@@ -47,11 +70,20 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     ayah: {
-      fontFamily: 'Alqalam',
-      textAlign: 'right',
-      fontSize: getFontSize(17)
+        fontFamily: 'Alqalam',
+        textAlign: 'right',
+        fontSize: getFontSize(17),
     },
     ayahToFind: {
-      fontSize: getFontSize(20),
+        fontSize: getFontSize(20),
+    },
+    label: {
+        textAlign: 'center',
+    },
+    questionContainer: {
+        flexDirection: 'column-reverse',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        textAlign: 'right'
     }
-  });
+});
