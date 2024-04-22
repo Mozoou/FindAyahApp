@@ -1,4 +1,5 @@
 import { AyahInteface } from "../interfaces/AyahInterface";
+import { shuffle } from "../utils/Functions";
 
 export class GameQuestion {
     verseToFind: AyahInteface
@@ -30,6 +31,6 @@ export class GameQuestion {
             choices.push(wrongAyah)
         });
 
-        return choices;
+        return shuffle(choices);
     }
 }
