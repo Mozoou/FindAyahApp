@@ -34,3 +34,25 @@ export const FetchGameData = async (gameSettings: GameSetting) => {
     console.error(error);
   }
 };
+
+export const Login = async (email: string, password: string) => {
+  try {
+    const response = await fetch(`${API_INTERNAL}/` + 'login_check', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: email,
+        password: password
+      }),
+    });
+
+    const json = await response.json();
+
+    return json.data.token;
+  } catch (error) {
+    console.error(error)
+  }
+}
