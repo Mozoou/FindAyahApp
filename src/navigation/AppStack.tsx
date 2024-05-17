@@ -3,9 +3,11 @@ import { HomeScreen } from "../screens/HomeScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { GameSettingsScreen } from "../screens/GameSettingsScreen";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Alert, Pressable, StyleSheet, Text } from "react-native";
-import { baseStyle, globals } from "../baseStyle";
+import { Alert, Pressable } from "react-native";
+import { globals } from "../styles";
 import { AuthContext } from "../context/AuthContext";
+import { GameScreen } from "../screens/GameScreen";
+import { GameClose } from "../components/GameClose";
 
 const Drawer = createDrawerNavigator();
 
@@ -35,7 +37,7 @@ export default function AppStack() {
                 headerTransparent: true,
                 headerTitle: '',
                 headerStyle: {
-                    borderColor: '#3c604b',
+                    borderColor: globals.primaryColor,
                 },
             }}
         >
@@ -45,24 +47,23 @@ export default function AppStack() {
                 options={{
                     headerRight: () => (
                         <Pressable style={{marginEnd: 15}} onPress={handleLogOut}>
-                            <MaterialIcons name="logout" size={24} color="#b89742" />
+                            <MaterialIcons name="logout" size={24} color={globals.secondaryColor} />
                         </Pressable>
                     ),
                 }}
             />
             <Drawer.Screen name="Settings" component={GameSettingsScreen} />
-            {/* <Drawer.Screen name="Game" component={GameScreen}
+            <Drawer.Screen name="Game" component={GameScreen}
                     options={({ navigation }) => ({
                         title: '',
                         headerTransparent: true,
                         headerLeft: () => <GameClose navigation={ navigation }></GameClose>,
                         gestureEnabled: false,
+                        drawerItemStyle: {
+                            display: 'none'
+                        }
                     })}
-            /> */}
+            />
         </Drawer.Navigator>
     )
 }
-
-// const styles = StyleSheet.create({
-
-// })

@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { getFontSize } from '../utils/Functions';
 import TextTicker from 'react-native-text-ticker';
+import { globals } from '../styles';
 
 interface CustomRadioButtonProps {
     label: string
@@ -15,7 +16,7 @@ interface CustomRadioButtonProps {
 export const CustomRadioButton: React.FC<CustomRadioButtonProps> = ({ label, selected, onSelect }) => (
     <TouchableOpacity
         style={[styles.radioButton,
-        { backgroundColor: selected ? '#3c604b' : '#FFF' }]}
+        { backgroundColor: selected ? globals.primaryColor : '#FFF' }]}
         onPress={onSelect}
     >
         <TextTicker
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginVertical: 8,
         borderWidth: 1,
-        borderColor: '#b89742',
+        borderColor: globals.secondaryColor,
         alignItems: 'flex-end',
         justifyContent: 'space-between',
         width: 280,

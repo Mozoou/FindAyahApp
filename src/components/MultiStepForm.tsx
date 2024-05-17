@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FormStep } from "./FormStep";
 import { GameScoreBoard } from "../models/GameScoreBoard";
+import { globals } from "../styles";
 
 interface MultiStepFormProps {
     data: Array<any>
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 12,
         elevation: 2,
-        backgroundColor: '#b89742'
+        backgroundColor: globals.secondaryColor,
     },
     buttonText: {
         color: 'white',

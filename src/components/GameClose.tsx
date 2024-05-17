@@ -1,4 +1,5 @@
 import { Alert, Pressable, StyleSheet, Text } from "react-native"
+import { globals } from "../styles";
 
 interface GameCloseProps {
   navigation: any,
@@ -15,9 +16,9 @@ export const GameClose: React.FC<GameCloseProps> = ({ navigation }) => {
         {
           text: 'Leave',
           style: 'destructive',
-          // If the user confirmed, then we dispatch the action we blocked earlier
-          // This will continue the action that had triggered the removal of the screen
-          onPress: () => navigation.navigate("Home"),
+          onPress: () => {
+            navigation.navigate("Home")
+          }
         },
       ]
     );
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonDismiss: {
-    backgroundColor: "red",
+    backgroundColor: globals.secondaryColor,
   },
   exitTextButton: {
     color: '#FFFFFF'

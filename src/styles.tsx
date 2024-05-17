@@ -60,10 +60,10 @@ export const styles = StyleSheet.create({
         elevation: 2,
     },
     buttonPrimary: {
-        backgroundColor: "#b89742",
+        backgroundColor: globals.secondaryColor,
     },
     buttonSecondary: {
-        backgroundColor: "#3c604b",
+        backgroundColor: globals.primaryColor,
     }
   });
   

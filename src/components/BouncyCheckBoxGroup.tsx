@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { globals } from "../styles";
 
 interface RadioFormGroupProps {
   data: Array<any>
@@ -27,7 +28,7 @@ export const BouncyCheckBoxGroup: React.FC<RadioFormGroupProps> = ({ data, press
             <BouncyCheckbox
               style={styles.centeredView}
               textStyle={styles.textStyle}
-              fillColor="#b89742"
+              fillColor={globals.secondaryColor}
               unfillColor="#FFFFFF"
               text={item.name}
               onPress={(isPressed) => { onPress(isPressed, item.number) }}
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   textStyle: {
-    color: "#3c604b",
+    color: globals.primaryColor,
     fontWeight: "bold",
     textAlign: "center",
     fontSize: 20,

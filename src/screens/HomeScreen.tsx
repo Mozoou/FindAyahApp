@@ -4,6 +4,8 @@ import { gameSettings } from '../components/SettingsForm';
 import { FetchGameData } from '../services/network';
 import { showMessage } from 'react-native-flash-message';
 import { GameQuestion } from '../models/GameQuestion';
+import { StatusBar } from 'expo-status-bar';
+import { globals } from '../styles';
 
 interface HomeScreenProps {
   navigation: any; // Adjust the type of navigation as per your actual navigation prop type
@@ -39,11 +41,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <Image
         style={styles.logo}
-        source={require('../../assets/img/dark_logo.png')}
+        source={require('../../assets/img/logo.png')}
       />
-      <ActivityIndicator size={50} animating={show} hidesWhenStopped color='#b89742'/>
+      <ActivityIndicator size={50} animating={show} hidesWhenStopped color={globals.secondaryColor} />
       <View>
         <Pressable
           style={!disabledButtons ? [styles.button, styles.buttonSubmit] : [styles.button, styles.buttonDisabled]}
@@ -66,7 +69,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#3c604b',
+    backgroundColor: globals.primaryColor,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
@@ -83,13 +86,13 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#3c604b",
+    backgroundColor: globals.primaryColor,
   },
   buttonClose: {
-    backgroundColor: "#3c604b",
+    backgroundColor: globals.primaryColor,
   },
   buttonSubmit: {
-    backgroundColor: "#b89742",
+    backgroundColor: globals.secondaryColor,
   },
   buttonDisabled: {
     display: 'none'

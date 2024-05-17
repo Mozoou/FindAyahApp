@@ -11,6 +11,7 @@ import { RadioFormGroup, RadioObject } from "../components/RadioFormGroup";
 import { ModalComponent, ModalRef } from "../components/ModalComponent";
 import { BouncyCheckBoxGroup } from "../components/BouncyCheckBoxGroup";
 import { sessionStorage } from "../utils/Storage";
+import { globals } from "../styles";
 
 const sessionSettingsParams = sessionStorage.getItem("settings");
 let numberOfQuestionPerGame = 0;
@@ -127,7 +128,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#3c604b",
+        backgroundColor: globals.primaryColor,
         justifyContent: "center",
         alignItems: "center",
         fontFamily: "Roboto"
@@ -141,13 +142,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     title: {
-        color: "#3c604b",
+        color: globals.primaryColor,
         fontSize: 23,
         marginVertical: 25,
         fontFamily: "Roboto",
     },
     modalTitle: {
-        color: "#b89742",
+        color: globals.secondaryColor,
         fontSize: 23,
         marginVertical: 25,
     },
@@ -165,13 +166,13 @@ const styles = StyleSheet.create({
     },
     buttonOpen: {
         marginTop: 10,
-        backgroundColor: "#3c604b",
+        backgroundColor: globals.primaryColor,
     },
     buttonClose: {
-        backgroundColor: "#3c604b",
+        backgroundColor: globals.primaryColor,
     },
     ButtonSubmit: {
-        backgroundColor: "#b89742",
+        backgroundColor: globals.secondaryColor,
     },
     textStyle: {
         color: "#FFFFFF",

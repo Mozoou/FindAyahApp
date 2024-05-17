@@ -1,6 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
-import { Surah } from '../interfaces/SurahInterface';
+import { SurahInterface } from '../interfaces/SurahInterface';
+import { globals } from '../styles';
 
 export interface ModalRef {
   openModal: (data: any) => void;
@@ -13,7 +14,7 @@ export const ModalComponent = forwardRef<ModalRef, {modalContent: Function}>((pr
   const modalContent = () => props.modalContent();
 
   // This function will be callable by the parent component.
-  const openModal = (data: Array<Surah>) => {
+  const openModal = (data: Array<SurahInterface>) => {
     setModalData(data); // Use the data passed by parent.
     setIsVisible(true);
   };
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    backgroundColor: "#3c604b",
+    backgroundColor: globals.primaryColor,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   modalView: {
     width: "100%",
     margin: 20,
-    backgroundColor: "#3c604b",
+    backgroundColor: globals.primaryColor,
     borderRadius: 20,
     padding: 50,
     alignItems: "center",
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonClose: {
-    backgroundColor: "#b89742",
+    backgroundColor: globals.secondaryColor,
   },
   textStyle: {
     color: "#FFFFFF",

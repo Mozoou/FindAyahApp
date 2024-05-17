@@ -1,9 +1,9 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { GameQuestion } from "../models/GameQuestion";
 import { useMemo, useState } from "react";
 import { getFontSize } from "../utils/Functions";
 import { CustomRadioButton } from "./CustomRadioButton";
-import TextTicker from "react-native-text-ticker";
+import { globals } from "../styles";
 
 interface FormStepProps {
     gameQuestion: GameQuestion
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         paddingBottom: 0,
         paddingTop: 15,
         borderWidth: 2,
-        borderColor: '#b89742',
+        borderColor: globals.secondaryColor,
         marginBottom: 20
     },
     ayah: {

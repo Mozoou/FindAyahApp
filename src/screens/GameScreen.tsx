@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import { MultiStepForm } from "../components/MultiStepForm";
 import { GameScoreBoard } from "../models/GameScoreBoard";
+import { globals } from "../styles";
 
 interface GameProps {
   route: any; // TODO: Add type
@@ -22,7 +23,7 @@ export const GameScreen: React.FC<GameProps> = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#3c604b",
+    backgroundColor: globals.primaryColor,
     color: "red",
     height: "100%",
     width: "100%",
