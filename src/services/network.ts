@@ -51,7 +51,7 @@ export const Login = async (email: string, password: string) => {
 
     const json = await response.json();
 
-    return json.data.token;
+    return json.token;
   } catch (error) {
     console.error(error)
   }
