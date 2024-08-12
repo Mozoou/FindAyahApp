@@ -18,19 +18,19 @@ export const BouncyCheckBoxGroup: React.FC<RadioFormGroupProps> = ({ data, press
 
   return (
     <FlatList
-      numColumns={2}
+      numColumns={1}
       style={styles.list}
       data={data}
       keyExtractor={({ number }) => number}
       renderItem={({ item, index }) => {
         return (
-          <View style={[{ backgroundColor: '#ffffff', flex: 1, padding: 10 }, index % 2 == 0 ? { marginRight: 1 } : { marginLeft: 1 }]}>
+          <View style={[{ backgroundColor: '#ffffff', flex: 1, padding: 10 }]}>
             <BouncyCheckbox
               style={styles.centeredView}
               textStyle={styles.textStyle}
               fillColor={globals.secondaryColor}
               unfillColor="#FFFFFF"
-              text={item.name}
+              text={`${item.number} - ${item.name}`}
               onPress={(isPressed) => { onPress(isPressed, item.number) }}
               isChecked={isChecked(item.number)}
             />
@@ -43,19 +43,20 @@ export const BouncyCheckBoxGroup: React.FC<RadioFormGroupProps> = ({ data, press
 
 const styles = StyleSheet.create({
   centeredView: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    marginVertical: 5
+    justifyContent: "space-between",
+    marginVertical: 10,
+    paddingHorizontal: 70
+    
   },
   list: {
     width: "100%",
-    borderRadius: 10
+    borderRadius: 10,
   },
   textStyle: {
     color: globals.primaryColor,
     fontWeight: "bold",
-    textAlign: "center",
-    fontSize: 20,
+    textAlign: 'right',
+    fontSize: 17,
     textDecorationLine: "none",
   },
 });

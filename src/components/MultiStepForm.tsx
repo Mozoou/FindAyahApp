@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FormStep } from "./FormStep";
 import { GameScoreBoard } from "../models/GameScoreBoard";
 import { globals } from "../styles";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface MultiStepFormProps {
     data: Array<any>
@@ -17,16 +18,16 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({ data, gameScoreBoa
     const handleValueChange = (id: number) => {
         setSelectedValue(id);
     }
-    
+
     const handleNextClick = () => {
         gameScoreBoard.updateScore(selectedValue, data[currentStep].goodVerseAnswer)
         setCurrentStep(currentStep + 1);
     }
 
     const handleFinishButton = () => {
-        // gameScoreBoard.incrementScore()
-        navigation.navigate('Home')
-        gameScoreBoard.score = 0;
+        gameScoreBoard.updateScore(selectedValue, data[currentStep].goodVerseAnswer)
+        setCurrentStep(0)
+        navigation.navigate('Score', {'data': data, 'gameScoreBoard': gameScoreBoard})
     }
 
     const getGameQuestion = () => {
@@ -39,56 +40,64 @@ export const MultiStepForm: React.FC<MultiStepFormProps> = ({ data, gameScoreBoa
 
     return (
         <View style={styles.container}>
-            <Text style={styles.score}>Score : {gameScoreBoard.score}</Text>
-            <View style={styles.formContainer}>
-                <FormStep gameQuestion={getGameQuestion()} handleValueChange={handleValueChange} />
+            <View style={styles.icon}>
             </View>
-            <View>
-            {islastQuestion() && <Pressable
-                style={styles.button}
-                onPress={handleNextClick}
-                >
-                <Text style={styles.buttonText}>Next</Text>
-            </Pressable>
-            }
-             {!islastQuestion() && <Pressable
-                style={styles.button}
-                onPress={handleFinishButton}
-                >
-                <Text style={styles.buttonText}>Finish</Text>
-            </Pressable>
-                }
-            </View>
+            <ScrollView>
+                <View style={styles.formContainer}>
+                    <FormStep gameQuestion={getGameQuestion()} handleValueChange={handleValueChange} />
+                </View>
+                <View style={styles.submitContainer}>
+                    {islastQuestion() && <Pressable
+                        style={styles.button}
+                        onPress={handleNextClick}
+                    >
+                        <Text style={styles.buttonText}>Next</Text>
+                    </Pressable>
+                    }
+                    {!islastQuestion() && <Pressable
+                        style={styles.button}
+                        onPress={handleFinishButton}
+                    >
+                        <Text style={styles.buttonText}>Finish</Text>
+                    </Pressable>
+                    }
+                </View>
+            </ScrollView>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    score: {
-        fontSize: 20,
-        marginTop: 15,
-    },
     container: {
-        flex: 1,
-        justifyContent: 'space-evenly',
         alignItems: 'center',
-        paddingHorizontal: 10
+        justifyContent: 'space-around'
+    },
+    icon: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 5,
     },
     formContainer: {
         backgroundColor: '#FFFFFF',
+        marginTop: 50,
         borderRadius: 15,
-        padding: 40,
-        marginHorizontal: 15,
+        marginHorizontal: 10,
         alignContent: 'center',
         justifyContent: 'center',
     },
+    submitContainer: {
+        marginVertical: 30,
+    },
     button: {
+        alignSelf: 'center',
+        width: 100,
         borderRadius: 20,
         padding: 12,
-        elevation: 2,
         backgroundColor: globals.secondaryColor,
     },
     buttonText: {
         color: 'white',
+        textAlign: 'center',
     }
 });

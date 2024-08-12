@@ -19,42 +19,25 @@ export const FormStep: React.FC<FormStepProps> = ({ gameQuestion, handleValueCha
         setSelectedValue(id)
     }
 
-    let radioButtons: Array<any> = [];
-
-    getQuestionChoices.forEach((choice) => {
-        radioButtons.push(
-            <CustomRadioButton
-                label={choice.label}
-                selected={choice.id === selectedValue}
-                onSelect={() => handleChoicePress(choice.id)}
-            />
-        );
-    });
-
     return (
-        <View>
+        <View style={{padding: 20}}>
             <View style={styles.titleContainer}>
                 <Text 
-                    style={[styles.ayah, styles.ayahToFind]}
+                    style={styles.ayah}
                 >
                     {gameQuestion.verseToFind.text}
-
                 </Text>
-                
-                {/* <TextTicker
-                    style={[styles.ayah, styles.ayahToFind]}
-                    animationType='bounce'
-                    // duration={}
-                    // scrollSpeed={5000}
-                    loop
-                    isRTL={true}
-                >
-                    {gameQuestion.verseToFind.text}
-                </TextTicker> */}
             </View>
             <View>
                 <Text style={styles.label}>Choose the next verse</Text>
-                {radioButtons}
+                {getQuestionChoices.map((choice) => (
+                    <CustomRadioButton
+                        key={choice.id}
+                        label={choice.label}
+                        selected={choice.id === selectedValue}
+                        onSelect={() => handleChoicePress(choice.id)}
+                    />
+                ))}
             </View>
         </View>
     );
@@ -66,16 +49,14 @@ const styles = StyleSheet.create({
         paddingBottom: 0,
         paddingTop: 15,
         borderWidth: 2,
+        borderRadius: 8,
         borderColor: globals.secondaryColor,
         marginBottom: 20
     },
     ayah: {
-        fontFamily: 'Alqalam',
+        fontFamily: 'NotoNaskhArabic',
         textAlign: 'right',
-        fontSize: getFontSize(17),
-    },
-    ayahToFind: {
-        fontSize: getFontSize(20),
+        fontSize: getFontSize(18),
     },
     label: {
         textAlign: 'center',

@@ -9,7 +9,8 @@ export default function App() {
     'Roboto': require('./assets/fonts/Roboto-Regular.ttf'),
     'Ubuntu': require('./assets/fonts/Ubuntu-Regular.ttf'),
     'Noto': require('./assets/fonts/Noto-Arabic.ttf'),
-    'Alqalam': require('./assets/fonts/Alqalam-Quran.ttf')
+    'Alqalam': require('./assets/fonts/Alqalam-Quran.ttf'),
+    'NotoNaskhArabic': require('./assets/fonts/NotoNaskhArabic-Regular.ttf')
   });
 
   if (!fontsLoaded && !fontError) {

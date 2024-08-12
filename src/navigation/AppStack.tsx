@@ -3,11 +3,12 @@ import { HomeScreen } from "../screens/HomeScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { GameSettingsScreen } from "../screens/GameSettingsScreen";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Alert, Pressable } from "react-native";
-import { globals } from "../styles";
+import { Alert, Image, Pressable, View } from "react-native";
+import { globalStyles, globals } from "../styles";
 import { AuthContext } from "../context/AuthContext";
 import { GameScreen } from "../screens/GameScreen";
 import { GameClose } from "../components/GameClose";
+import { ScoreScreen } from "../screens/ScoreScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,14 +20,14 @@ export default function AppStack() {
             'Do you want to logout ?',
             'You will have to sign in again !',
             [
-              { text: "Stay signed in", style: 'cancel', onPress: () => { } },
-              {
-                text: 'Log out',
-                style: 'destructive',
-                onPress: () => logout(),
-              },
+                { text: "Stay signed in", style: 'cancel', onPress: () => { } },
+                {
+                    text: 'Log out',
+                    style: 'destructive',
+                    onPress: () => logout(),
+                },
             ]
-          );
+        );
     }
 
     return (
@@ -34,10 +35,20 @@ export default function AppStack() {
             initialRouteName="Home"
             screenOptions={{
                 headerTintColor: globals.secondaryColor,
-                headerTransparent: true,
-                headerTitle: '',
+                headerTitle: () => (
+                    <View>
+                        <Image
+                            style={globalStyles.smallLogo}
+                            source={require('../../assets/img/logo.png')}
+                        />
+                    </View>
+                ),
                 headerStyle: {
-                    borderColor: globals.primaryColor,
+                    backgroundColor: globals.primaryColor,
+                    height: 120,
+                    borderBottomWidth: 0,
+                    shadowColor: 'transparent',
+                    elevation: 0,
                 },
             }}
         >
@@ -46,7 +57,7 @@ export default function AppStack() {
                 component={HomeScreen}
                 options={{
                     headerRight: () => (
-                        <Pressable style={{marginEnd: 15}} onPress={handleLogOut}>
+                        <Pressable style={{ marginEnd: 15 }} onPress={handleLogOut}>
                             <MaterialIcons name="logout" size={24} color={globals.secondaryColor} />
                         </Pressable>
                     ),
@@ -54,15 +65,26 @@ export default function AppStack() {
             />
             <Drawer.Screen name="Settings" component={GameSettingsScreen} />
             <Drawer.Screen name="Game" component={GameScreen}
-                    options={({ navigation }) => ({
-                        title: '',
-                        headerTransparent: true,
-                        headerLeft: () => <GameClose navigation={ navigation }></GameClose>,
-                        gestureEnabled: false,
-                        drawerItemStyle: {
-                            display: 'none'
-                        }
-                    })}
+                options={({ navigation }) => ({
+                    headerLeft: () => <GameClose navigation={navigation}></GameClose>,
+                    gestureEnabled: false,
+                    swipeEnabled: false,
+                    drawerItemStyle: {
+                        display: 'none'
+                    }
+                })}
+            />
+            <Drawer.Screen name="Score" component={ScoreScreen}
+                options={() => ({
+                    title: '',
+                    headerTransparent: true,
+                    headerLeft: () => null,
+                    gestureEnabled: false,
+                    swipeEnabled: false,
+                    drawerItemStyle: {
+                        display: 'none'
+                    }
+                })}
             />
         </Drawer.Navigator>
     )

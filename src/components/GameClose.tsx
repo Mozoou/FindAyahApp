@@ -1,5 +1,6 @@
 import { Alert, Pressable, StyleSheet, Text } from "react-native"
 import { globals } from "../styles";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 interface GameCloseProps {
   navigation: any,
@@ -26,26 +27,9 @@ export const GameClose: React.FC<GameCloseProps> = ({ navigation }) => {
 
   return (
     <Pressable
-      style={[styles.button, styles.buttonDismiss]}
       onPress={returnToHomeScreen}
     >
-      <Text style={styles.exitTextButton}>Leave</Text>
+      <MaterialIcons name="keyboard-arrow-left" size={24} style={{marginLeft: 15}} color={globals.secondaryColor} />
     </Pressable>
   )
 }
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 5,
-    marginVertical: 20,
-    padding: 8,
-    marginTop: 10,
-    elevation: 2,
-  },
-  buttonDismiss: {
-    backgroundColor: globals.secondaryColor,
-  },
-  exitTextButton: {
-    color: '#FFFFFF'
-  },
-})

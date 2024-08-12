@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { styles, globals } from '../styles';
+import { globalStyles, globals } from '../styles';
 import { AuthContext } from '../context/AuthContext';
 import { StatusBar } from 'expo-status-bar';
 import Animated, { BounceIn } from 'react-native-reanimated';
@@ -23,23 +23,23 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <StatusBar style="light" />
-      <Image style={styles.backgroundImage} source={require('../../assets/img/bg.png')}></Image>
+      <Image style={globalStyles.backgroundImage} source={require('../../assets/img/bg.png')}></Image>
 
       {/* Logo */}
-      <View style={styles.logoContainer}>
+      <View style={globalStyles.logoContainer}>
         <Animated.Image
           entering={BounceIn.delay(500).duration(1000).springify()}
-          style={styles.smallLogo}
+          style={globalStyles.smallLogo}
           source={require('../../assets/img/logo.png')}
         />
       </View>
 
       {/* Title */}
-      <View style={styles.titleContainer}>
+      <View style={globalStyles.titleContainer}>
             <Animated.Text
-              style={styles.mainTitle}
+              style={globalStyles.mainTitle}
               entering={BounceIn.duration(1000).springify()}
             >
               Sing In
@@ -47,18 +47,18 @@ export const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
       </View>
 
       {/* Form */}
-      <View style={styles.formContainer}>
-          <View style={styles.formImputContainer}>
-              <Animated.View style={styles.formControl} entering={BounceIn.delay(200).duration(1000).springify()}>
+      <View style={globalStyles.formContainer}>
+          <View style={globalStyles.formImputContainer}>
+              <Animated.View style={globalStyles.formControl} entering={BounceIn.delay(200).duration(1000).springify()}>
                 <TextInput onChangeText={text => setEmail(text)} placeholder='Email' placeholderTextColor={'grey'} />
               </Animated.View>
-              <Animated.View style={styles.formControl} entering={BounceIn.delay(400).duration(1000).springify()}>
+              <Animated.View style={globalStyles.formControl} entering={BounceIn.delay(400).duration(1000).springify()}>
                 <TextInput onChangeText={text => setPassword(text)} placeholder='Password' placeholderTextColor={'grey'} secureTextEntry />
               </Animated.View>
               <Animated.View style={{width: '100%'}} entering={BounceIn.delay(600).duration(1000).springify()}>
                 <TouchableOpacity
                   onPress={handleLogin}
-                  style={[styles.button, styles.buttonPrimary]}
+                  style={[globalStyles.button, globalStyles.buttonPrimary]}
                 >
                   <Text style={{color: 'white', textAlign: 'center'}}>Sing In</Text>
                 </TouchableOpacity>

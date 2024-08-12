@@ -23,11 +23,10 @@ export const GameScreen: React.FC<GameProps> = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignContent: 'center',
     backgroundColor: globals.primaryColor,
-    color: "red",
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    // justifyContent: 'center'
+    paddingVertical: 30
   }
 });

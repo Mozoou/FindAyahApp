@@ -6,7 +6,7 @@ export const globals = {
     lightColor: '#ffffff'
 }
 
-export const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         // position: 'absolute',
-        marginVertical: 10,
+        marginTop: 30,
     },
     smallLogo: {
         width: 130,

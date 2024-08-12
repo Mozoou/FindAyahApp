@@ -17,7 +17,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
 
   const startGame = async () => {
-    // Add loader here
     setShow(true)
     setDisabledButtons(true)
     let data: Array<GameQuestion>|undefined = [];
@@ -29,23 +28,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         type: "warning",
       });
     }
-    // remove loader
     setShow(false)
     setDisabledButtons(false)
     if (data && data.length > 0) {
       navigation.navigate('Game', {data})
     }
-
-    // redirect to gameScreen with params fetched and start game
   }
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Image
-        style={styles.logo}
-        source={require('../../assets/img/logo.png')}
-      />
       <ActivityIndicator size={50} animating={show} hidesWhenStopped color={globals.secondaryColor} />
       <View>
         <Pressable
